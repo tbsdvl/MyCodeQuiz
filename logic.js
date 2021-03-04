@@ -2,24 +2,29 @@
 
 // Variables and Objects
 var time = 10;
+var clickCount = 0;
 var startButton = document.querySelector("#start");
 var secondsLeft = document.querySelector("#seconds");
 var answersBox = document.querySelector("#answers");
 var questionBox = document.querySelector("#quizquestion");
+var wins = document.querySelector("#wins");
+var lose = document.querySelector("#losses");
 
 var quizQuestions = {
     q1: "How would one begin and end a multiline comment inside a JavaScript file?",
     q2: "What is the syntax for a conditional ternary operator?",
     q3: "Which of the following is an example of a curry function?",
-    q4: "What are the three main components of Behavior Driven Development?"
+    q4: "What are the three main components of Behavior Driven Development?",
+    end: "Here are your results!"
 };
 
 var questionCount = 0;
 
-var randomQuestion = Math.floor(Math.random() * Object.entries(quizQuestions).length);
-
 var quizChoices = {
-    choices1: ["//, \\", "/*, */", "*|, |*", "#/, #/"]
+    choices1: ["<<  >>", "/*  */", "*|  |*", "#/  #/"],
+    choices2: ["Gobbledygook", "feeeemfa", "hhugghg", "qtjioew"],
+    choices3: ["a", "b", "c", "d"],
+    choices4: ["w", "x", "y", "z"]
 };
 
 var buttons = {
@@ -28,9 +33,6 @@ var buttons = {
     button3: document.querySelector("#answer3"),
     buttons4: document.querySelector("#answer4")
 };
-
-var quizAnswers = [quizChoices.choices1[1]];
-
 
 // LOGIC
 // click the start button
@@ -54,32 +56,48 @@ startButton.addEventListener("click", function() {
 // Populate answer buttons with choices
 function answerPopulate() {
 for(i in answersBox.children){
-    answersBox.children[i].textContent = JSON.stringify(quizChoices.choices1[i]);
+    answersBox.children[i].textContent = quizChoices.choices1[i];
     };
-    // clickAnswer();
+};
+
+function answerPopulate1() {
+    for(i in answersBox.children)
+    answersBox.children[i].textContent = quizChoices.choices2[i];
+};
+
+function answerPopulate2() {
+    for(i in answersBox.children)
+    answersBox.children[i].textContent = quizChoices.choices3[i];
+};
+
+function answerPopulate3() {
+    for(i in answersBox.children)
+    answersBox.children[i].textContent = quizChoices.choices4[i];
 };
 
 // answer a question
-// function clickAnswer(){
+// presented with another question
 for(i in Object.entries(buttons)){
     Object.entries(buttons)[i][1].addEventListener("click", function() {
-        // console.log("Hello");
-        questionBox.textContent = Object.entries(quizQuestions)[++questionCount][1]
+        questionBox.textContent = Object.entries(quizQuestions)[++questionCount][1];
+        clickCount = ++clickCount;
+        if(clickCount === 1){
+            answerPopulate1();
+        }else if(clickCount === 2){
+            answerPopulate2();
+        }else if(clickCount === 3){
+            answerPopulate3();
+        };
     });
 };
-// };
-
-
-// presented with another question
-// function questionsPopulate() {
-// for(i in Object.entries(quizQuestions)){
-//     Object
-//     questionBox.textContent = Object.entries(quizQuestions)[questionCount + 1][1]
-// }
-// // };
 
 // if i answer a question incorrectly
-//     time is subtracted from the clock
+// function answerResult() {
+//     Object.entries(buttons)[i][1].addEventListener("click", function() {
+
+//     }
+//     })
+// }
 
 // if all questions are answered or the timer reaches 0
 //     game is over
