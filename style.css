@@ -3,20 +3,6 @@
     margin: 0;
 } */
 
-.quizheader {
-    text-align: center;
-}
-
-.quiz {
-    text-align: center;
-}
-
-.quizbox {
-    /* display: flex;
-    flex-direction: column; */
-    text-align: center;
-}
-
-.resultsbox {
+.container{
     text-align: center;
 }

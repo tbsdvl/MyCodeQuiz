@@ -3,7 +3,8 @@
 // Variables and Objects
 var time = 10;
 var clickCount = 0;
-var winsCount = 0;
+var winCount = 0;
+var lossCount = 0;
 var startButton = document.querySelector("#start");
 var secondsLeft = document.querySelector("#seconds");
 var answersBox = document.querySelector("#answers");
@@ -71,6 +72,14 @@ function answerPopulate3() {
     answersBox.children[i].textContent = quizChoices.choices4[i];
 };
 
+function win(){
+    wins.textContent = winCount + 1;
+};
+
+function lose(){
+    losses.textContent = lossCount + 1;
+}
+
 // answer a question
 // presented with another question
 for(i in Object.entries(buttons)){
@@ -85,25 +94,55 @@ for(i in Object.entries(buttons)){
             answerPopulate3();
         }
     });
+
     // Wins
     buttons.button2.addEventListener("click", function(){
         if(buttons.button2.textContent === quizChoices.choices1[1]){
-            wins.textContent = 1;
-        }else if(buttons.button2.textContent === quizChoices.choices4[1]){
-            wins.textContent = 4;
+            win();
         };
     });
+    
     buttons.button4.addEventListener("click", function(){
         if(buttons.button4.textContent === quizChoices.choices2[3]){
-            wins.textContent = 2;
+            if(wins.textContent === "1"){
+                wins.textContent = 2;
+            }else {
+                win();
+            }
         };
     });
+
     buttons.button3.addEventListener("click", function(){
         if(buttons.button3.textContent === quizChoices.choices3[2]){
-            wins.textContent = 3;
-        };
+            if(wins.textContent === "2"){
+                wins.textContent = 3;
+            }else if(wins.textContent === "1"){
+                wins.textContent = 2;
+            }else if(wins.textContent === "0"){
+                wins.textContent = 1;
+            }
+        }
     });
-    // Losses
+    
+    buttons.button1.addEventListener("click", function(){
+        if(buttons.button1.textContent === quizChoices.choices4[0]){
+            if(wins.textContent === "3"){
+                wins.textContent = 4;
+            }else if(wins.textContent === "2"){
+                wins.textContent = 3;
+            }else if(wins.textContent === "1"){
+                wins.textContent = 2;
+            }else if(wins.textContent === "0"){
+                wins.textContent = 1;
+            };  
+        };
+
+        // if(buttons.button1.textContent !== quizChoices.choices4[0]){
+        //     lose();
+        // };
+    });
+};
+
 
 
 // List of what I need
@@ -111,21 +150,3 @@ for(i in Object.entries(buttons)){
 // I need to log the results, the user's initials, and capture the data
 // I need to be able to reset the timer when I answer a question
 // I need to reset the time and stop the game if the user does not answer a question in time
-
-// buttons.button2.addEventListener("click", function() {
-//     if(buttons.button2.textContent === quizChoices.choices1[1]){
-//         wins.textContent = ++winsCount;
-//     }
-// });
-// // if i answer a question incorrectly
-// if(Object.entries(buttons)[1][0].textContent === Object.entries(quizChoices)[0][1][1]){
-//     buttons.button2.addEventListener("click", function() {
-//         wins.TextContent = winsCount = 1;
-//     });
-// };
-
-
-// if all questions are answered or the timer reaches 0
-//     game is over
-//         ask for user initials
-//         save initials and score
