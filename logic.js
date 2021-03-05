@@ -17,7 +17,7 @@ var lose = document.querySelector("#losses");
 var quizQuestions = {
     q1: "How would one begin and end a multiline comment inside a JavaScript file?",
     q2: "What is the syntax for a conditional ternary operator?",
-    q3: "Which of the following is an example of a curry function?",
+    q3: "Which of the following is an example of currying a function?",
     q4: "What are the three main components of Behavior Driven Development?",
     end: "Here are your results!"
 };
@@ -26,9 +26,9 @@ var questionCount = 0;
 
 var quizChoices = {
     choices1: ["<<  >>", "/*  */", "*|  |*", "#/  #/"],
-    choices2: ["Gobbledygook", "feeeemfa", "hhugghg", "qtjioew"],
-    choices3: ["a", "b", "c", "d"],
-    choices4: ["w", "x", "y", "z"]
+    choices2: ["x.ternary(x,y)", "x(true) y(false)", "! x : y !", "? x : y"],
+    choices3: ["curry(f)", "function curry(){}", "_.curry(f)", "function(curry)"],
+    choices4: ["tests, documentation, examples", "Larry, Curly, Moe", "Mocha, functions, practicality", "Me, myself, I"]
 };
 
 var buttons = {
