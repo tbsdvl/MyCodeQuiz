@@ -8,3 +8,7 @@ the form.
 The application will store the user's initials and results.
 When a correct answer is clicked, the win score increases by 1.
 When an incorrect answer is clicked, the lose score increases by 1.
+
+![MyCodeQuiz](![image](https://user-images.githubusercontent.com/76135007/110071946-31ae1700-7d3a-11eb-9b15-425c4c32feb8.png)
+
+
