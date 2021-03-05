@@ -11,4 +11,5 @@ When an incorrect answer is clicked, the lose score increases by 1.
 
 ![MyCodeQuiz](![image](https://user-images.githubusercontent.com/76135007/110071946-31ae1700-7d3a-11eb-9b15-425c4c32feb8.png)
 
-
+Link to the application:
+https://tbsdvl.github.io/MyCodeQuiz/
