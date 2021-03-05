@@ -9,6 +9,8 @@ var startButton = document.querySelector("#start");
 var secondsLeft = document.querySelector("#seconds");
 var answersBox = document.querySelector("#answers");
 var questionBox = document.querySelector("#quizquestion");
+var submitEl = document.querySelector("#submit");
+var initials = document.querySelector("#initials");
 var wins = document.querySelector("#wins");
 var lose = document.querySelector("#losses");
 
@@ -36,21 +38,7 @@ var buttons = {
     button4: document.querySelector("#answer4")
 };
 
-startButton.addEventListener("click", function() {
-    questionBox.textContent = (JSON.stringify(quizQuestions.q1));
-    var quizTimer = setInterval(function() {
-        secondsLeft.textContent = (--time + " Seconds left.");
-        console.log(time);
-        if(time === 1){
-            secondsLeft.textContent = (time + " Second left.")
-        }else if(time === 0){
-            clearInterval(quizTimer);
-        };
-    }, 1000);
-    answerPopulate();
-});
-
-// Populate answer buttons with choices
+// asnwerPopulate functions insert quizChoice text into answer buttons 
 function answerPopulate() {
 for(i in answersBox.children){
     answersBox.children[i].textContent = quizChoices.choices1[i];
@@ -72,16 +60,61 @@ function answerPopulate3() {
     answersBox.children[i].textContent = quizChoices.choices4[i];
 };
 
+// If the user chooses the correct answer, the win score increases by 1
 function win(){
     wins.textContent = winCount + 1;
 };
 
-function lose(){
-    losses.textContent = lossCount + 1;
+// If the user chooses the incorrect answer, the lose score increases by 1
+function losses(){
+    lose.textContent = lossCount + 1;
 }
 
-// answer a question
-// presented with another question
+// Resets the timer to 10 if the countdown reaches zero
+function timeZero(){
+    if(time === 0){
+        time = 10;
+    }
+}
+
+// Resets the time to 10 if the user clicks an answer before a complete countdown
+function timeSet(){
+    time = 10;
+}
+
+// Stores the user's initials, win score, and lose score to local storage
+function storeData(e){
+    e.preventDefault();
+    wins.textContent = wins;
+    lose.textContent = lose;
+    localStorage.setItem("initials", initials.value);
+    localStorage.setItem("wins", wins);
+    localStorage.setItem("losses", lose);
+}
+
+// Starts the quiz upon clicking of the start button
+function startQuiz(){
+    questionBox.textContent = (JSON.stringify(quizQuestions.q1));
+    var quizTimer = setInterval(function() {
+        secondsLeft.textContent = (--time + " Seconds left.");
+        console.log(time);
+        if(time === 1){
+            secondsLeft.textContent = (time + " Second left.")
+        }else if(time === 0){
+            timeZero();
+            clearInterval(quizTimer);
+        };
+    }, 1000);
+    answerPopulate();
+};
+
+// Start button listens for a click event
+startButton.addEventListener("click", startQuiz);
+
+// Submit button listens for a click event
+submitEl.addEventListener("click", storeData);
+
+// This logic tells the quiz to display the next question's text once the user has chosen an answer
 for(i in Object.entries(buttons)){
     Object.entries(buttons)[i][1].addEventListener("click", function() {
         questionBox.textContent = Object.entries(quizQuestions)[++questionCount][1];
@@ -95,9 +128,10 @@ for(i in Object.entries(buttons)){
         }
     });
 
-    // Wins
+    // These button event listeners will update the win score in the case of a user choosing the correct answer
     buttons.button2.addEventListener("click", function(){
         if(buttons.button2.textContent === quizChoices.choices1[1]){
+            timeSet();
             win();
         };
     });
@@ -105,8 +139,10 @@ for(i in Object.entries(buttons)){
     buttons.button4.addEventListener("click", function(){
         if(buttons.button4.textContent === quizChoices.choices2[3]){
             if(wins.textContent === "1"){
+                timeSet();
                 wins.textContent = 2;
             }else {
+                timeSet();
                 win();
             }
         };
@@ -115,10 +151,13 @@ for(i in Object.entries(buttons)){
     buttons.button3.addEventListener("click", function(){
         if(buttons.button3.textContent === quizChoices.choices3[2]){
             if(wins.textContent === "2"){
+                timeSet();
                 wins.textContent = 3;
             }else if(wins.textContent === "1"){
+                timeSet();
                 wins.textContent = 2;
             }else if(wins.textContent === "0"){
+                timeSet();
                 wins.textContent = 1;
             }
         }
@@ -127,26 +166,18 @@ for(i in Object.entries(buttons)){
     buttons.button1.addEventListener("click", function(){
         if(buttons.button1.textContent === quizChoices.choices4[0]){
             if(wins.textContent === "3"){
+                timeSet();
                 wins.textContent = 4;
             }else if(wins.textContent === "2"){
+                timeSet();
                 wins.textContent = 3;
             }else if(wins.textContent === "1"){
+                timeSet();
                 wins.textContent = 2;
             }else if(wins.textContent === "0"){
+                timeSet();
                 wins.textContent = 1;
             };  
         };
-
-        // if(buttons.button1.textContent !== quizChoices.choices4[0]){
-        //     lose();
-        // };
     });
 };
-
-
-
-// List of what I need
-// I need to log wins and losses when I click the right or wrong answer
-// I need to log the results, the user's initials, and capture the data
-// I need to be able to reset the timer when I answer a question
-// I need to reset the time and stop the game if the user does not answer a question in time
